@@ -23,50 +23,8 @@ module Utils
       end
 
       def report(type, metadata = {})
-        return if ENV["HOMEBREW_NO_ANALYTICS"] || ENV["HOMEBREW_NO_ANALYTICS_THIS_RUN"]
-
-        args = []
-
-        # do not load .curlrc unless requested (must be the first argument)
-        args << "-q" unless ENV["HOMEBREW_CURLRC"]
-
-        args += %W[
-          --max-time 3
-          --user-agent #{HOMEBREW_USER_AGENT_CURL}
-          --data v=1
-          --data aip=1
-          --data t=#{type}
-          --data tid=#{ENV["HOMEBREW_ANALYTICS_ID"]}
-          --data cid=#{ENV["HOMEBREW_ANALYTICS_USER_UUID"]}
-          --data an=#{HOMEBREW_PRODUCT}
-          --data av=#{HOMEBREW_VERSION}
-        ]
-        metadata.each do |key, value|
-          next unless key
-          next unless value
-
-          key = ERB::Util.url_encode key
-          value = ERB::Util.url_encode value
-          args << "--data" << "#{key}=#{value}"
-        end
-
-        # Send analytics. Don't send or store any personally identifiable information.
-        # https://docs.brew.sh/Analytics
-        # https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide
-        # https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters
-        if ENV["HOMEBREW_ANALYTICS_DEBUG"]
-          url = "https://www.google-analytics.com/debug/collect"
-          puts "#{ENV["HOMEBREW_CURL"]} #{args.join(" ")} #{url}"
-          puts Utils.popen_read ENV["HOMEBREW_CURL"], *args, url
-        else
-          pid = fork do
-            exec ENV["HOMEBREW_CURL"],
-              *args,
-              "--silent", "--output", "/dev/null",
-              "https://www.google-analytics.com/collect"
-          end
-          Process.detach pid
-        end
+        # Never analytics...
+        return
       end
 
       def report_event(category, action, label = os_prefix_ci, value = nil)

@@ -20,51 +20,6 @@ module Homebrew
   end
 
   def update_report
-    HOMEBREW_REPOSITORY.cd do
-      analytics_message_displayed =
-        Utils.popen_read("git", "config", "--get", "homebrew.analyticsmessage").chomp == "true"
-      cask_analytics_message_displayed =
-        Utils.popen_read("git", "config", "--get", "homebrew.caskanalyticsmessage").chomp == "true"
-      analytics_disabled =
-        Utils.popen_read("git", "config", "--get", "homebrew.analyticsdisabled").chomp == "true"
-      if !analytics_message_displayed &&
-         !cask_analytics_message_displayed &&
-         !analytics_disabled &&
-         !ENV["HOMEBREW_NO_ANALYTICS"] &&
-         !ENV["HOMEBREW_NO_ANALYTICS_MESSAGE_OUTPUT"]
-
-        ENV["HOMEBREW_NO_ANALYTICS_THIS_RUN"] = "1"
-        # Use the shell's audible bell.
-        print "\a"
-
-        # Use an extra newline and bold to avoid this being missed.
-        ohai "Homebrew has enabled anonymous aggregate formulae and cask analytics."
-        puts <<~EOS
-          #{Tty.bold}Read the analytics documentation (and how to opt-out) here:
-            #{Formatter.url("https://docs.brew.sh/Analytics")}#{Tty.reset}
-
-        EOS
-
-        # Consider the message possibly missed if not a TTY.
-        if $stdout.tty?
-          safe_system "git", "config", "--replace-all", "homebrew.analyticsmessage", "true"
-          safe_system "git", "config", "--replace-all", "homebrew.caskanalyticsmessage", "true"
-        end
-      end
-
-      donation_message_displayed =
-        Utils.popen_read("git", "config", "--get", "homebrew.donationmessage").chomp == "true"
-      unless donation_message_displayed
-        ohai "Linuxbrew is run entirely by unpaid volunteers. Please consider donating:"
-        puts "  #{Formatter.url("https://github.com/Linuxbrew/brew#donations")}\n"
-
-        # Consider the message possibly missed if not a TTY.
-        if $stdout.tty?
-          safe_system "git", "config", "--replace-all", "homebrew.donationmessage", "true"
-        end
-      end
-    end
-
     install_core_tap_if_necessary
 
     hub = ReporterHub.new

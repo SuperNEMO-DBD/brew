@@ -71,6 +71,9 @@ then
   export CI="1"
 fi
 
+# Never Analytics
+export HOMEBREW_NO_ANALYTICS=1
+
 # test-bot does environment filtering itself
 if [[ -z "$HOMEBREW_NO_ENV_FILTERING" && "$1" != "test-bot" ]]
 then
