@@ -399,6 +399,16 @@ EOS
 
   git_init_if_necessary
 
+  # Always tap and pin our formulae
+  if [[ ! -d "$HOMEBREW_LIBRARY/Taps/supernemo-dbd/homebrew-cadfael" ]]
+  then
+    brew tap --full supernemo-dbd/cadfael || odie "Could not Tap supernemo-dbd/cadfael"
+  fi
+  if [[ ! -d "$HOMEBREW_LIBRARY/PinnedTaps/supernemo-dbd/cadfael" ]]
+  then
+    brew tap-pin supernemo-dbd/cadfael || odie "Could not Pin supernemo-dbd/cadfael Tap"
+  fi
+
   safe_cd "$HOMEBREW_REPOSITORY"
 
   # If the remote is not the default, change it to the default.
