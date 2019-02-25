@@ -97,9 +97,10 @@ begin
     system(HOMEBREW_BREW_FILE, "uninstall", "--force", "brew-cask")
   end
 
-  if ENV["HOMEBREW_BUILD_FROM_SOURCE"]
-    odeprecated("HOMEBREW_BUILD_FROM_SOURCE", "--build-from-source")
-  end
+  # Nope, we want to build from source, at least on Linux.
+  #if ENV["HOMEBREW_BUILD_FROM_SOURCE"]
+  #  odeprecated("HOMEBREW_BUILD_FROM_SOURCE", "--build-from-source")
+  #end
 
   if internal_cmd
     Homebrew.send cmd.to_s.tr("-", "_").downcase

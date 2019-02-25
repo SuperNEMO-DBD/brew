@@ -99,10 +99,9 @@ module Homebrew
 
       def please_create_pull_requests(what = "unsupported configuration")
         <<~EOS
-          You will encounter build failures with some formulae.
-          Please create pull requests instead of asking for help on Homebrew's GitHub,
-          Discourse, Twitter or IRC. You are responsible for resolving any issues you
-          experience, as you are running this #{what}.
+          You may encounter build failures with some formulae as
+          brew is being run in an #{what}
+          In these cases, please raise an issue at https://github.com/SuperNEMO-DBD/homebrew-core/issues
         EOS
       end
 
@@ -116,12 +115,7 @@ module Homebrew
       end
 
       def check_build_from_source
-        return unless ENV["HOMEBREW_BUILD_FROM_SOURCE"]
-
-        <<~EOS
-          You have HOMEBREW_BUILD_FROM_SOURCE set.
-          #{please_create_pull_requests}
-        EOS
+        return
       end
 
       # Anaconda installs multiple system & brew dupes, including OpenSSL, Python,

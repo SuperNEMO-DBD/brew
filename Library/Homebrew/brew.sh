@@ -157,6 +157,9 @@ else
   HOMEBREW_CACHE="${HOMEBREW_CACHE:-${CACHE_HOME}/Homebrew}"
   HOMEBREW_LOGS="${HOMEBREW_LOGS:-${CACHE_HOME}/Homebrew/Logs}"
   HOMEBREW_SYSTEM_TEMP="/tmp"
+
+  # Always build from source on Linux
+  export HOMEBREW_BUILD_FROM_SOURCE=1
 fi
 
 if [[ -n "$HOMEBREW_MACOS" || -n "$HOMEBREW_FORCE_HOMEBREW_ON_LINUX" ]]
@@ -222,6 +225,9 @@ export HOMEBREW_MACOS_VERSION
 export HOMEBREW_MACOS_VERSION_NUMERIC
 export HOMEBREW_USER_AGENT
 export HOMEBREW_USER_AGENT_CURL
+
+# Never Auto Update
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 if [[ -n "$HOMEBREW_MACOS" && -x "/usr/bin/xcode-select" ]]
 then
@@ -394,8 +400,9 @@ fi
 
 # Don't need shellcheck to follow this `source`.
 # shellcheck disable=SC1090
-source "$HOMEBREW_LIBRARY/Homebrew/utils/analytics.sh"
-setup-analytics
+# - NEVER analytics
+#source "$HOMEBREW_LIBRARY/Homebrew/utils/analytics.sh"
+#setup-analytics
 
 # Let user know we're still updating Homebrew if brew update --preinstall
 # exceeds 3 seconds.
