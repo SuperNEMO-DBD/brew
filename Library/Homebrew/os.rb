@@ -26,7 +26,7 @@ module OS
     PATH_OPEN = "/usr/bin/open".freeze
   elsif OS.linux?
     require "os/linux"
-    ISSUES_URL = "https://github.com/Linuxbrew/brew/wiki/troubleshooting".freeze
+    ISSUES_URL = "https://github.com/SuperNEMO-DBD/brew/wiki/troubleshooting".freeze
     PATH_OPEN = "xdg-open".freeze
   end
 end

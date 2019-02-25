@@ -545,43 +545,15 @@ module Homebrew
         return if !Utils.git_available? || !(HOMEBREW_REPOSITORY/".git").exist?
 
         origin = HOMEBREW_REPOSITORY.git_origin
-        remote = "https://github.com/Homebrew/brew"
+        remote = "https://github.com/SuperNEMO-DBD/brew"
 
         if origin.nil?
           <<~EOS
-            Missing Homebrew/brew git origin remote.
+            Missing SuperNEMO-DBD/brew git origin remote.
 
             Without a correctly configured origin, Homebrew won't update
             properly. You can solve this by adding the Homebrew remote:
               git -C "#{HOMEBREW_REPOSITORY}" remote add origin #{Formatter.url(remote)}
-          EOS
-        elsif origin =~ %r{Linuxbrew/brew(\.git)?$}
-          return if ENV["CI"]
-
-          <<~EOS
-            git origin remote is Linuxbrew/brew.
-
-            Linuxbrew/brew has been merged into Homebrew/brew!
-            Linuxbrew/brew will no longer be updated.
-            The current git origin is:
-              #{origin}
-
-            Please set the origin remote to point at the Homebrew/brew by running:
-
-              git -C "#{HOMEBREW_REPOSITORY}" remote set-url origin #{Formatter.url(remote)}
-          EOS
-        elsif origin !~ %r{Homebrew/brew(\.git)?$}
-          <<~EOS
-            Suspicious Homebrew/brew git origin remote found.
-
-            With a non-standard origin, Homebrew won't pull updates from
-            the main repository. The current git origin is:
-              #{origin}
-
-            Unless you have compelling reasons, consider setting the
-            origin remote to point at the main repository by running:
-
-              git -C "#{HOMEBREW_REPOSITORY}" remote set-url origin #{Formatter.url(remote)}
           EOS
         end
       end
@@ -591,7 +563,7 @@ module Homebrew
         return if !Utils.git_available? || !(coretap_path/".git").exist?
 
         origin = coretap_path.git_origin
-        remote = "https://github.com/Homebrew/homebrew-core.git"
+        remote = "https://github.com/SuperNEMO-DBD/homebrew-core.git"
 
         if origin.nil?
           <<~EOS
@@ -601,7 +573,7 @@ module Homebrew
             properly. You can solve this by adding the Homebrew remote:
               git -C "#{coretap_path}" remote add origin #{Formatter.url(remote)}
           EOS
-        elsif origin !~ %r{(Homebrew|Linuxbrew)/homebrew-core(\.git|/)?$}
+        elsif origin !~ %r{SuperNEMO-DBD/homebrew-core(\.git|/)?$}
           return if ENV["CI"] && origin.include?("Homebrew/homebrew-test-bot")
 
           <<~EOS

@@ -23,13 +23,8 @@ git() {
 }
 
 git_init_if_necessary() {
-  BREW_OFFICIAL_REMOTE="https://github.com/Homebrew/brew"
-  if [[ -n "$HOMEBREW_MACOS" ]] || [[ -n "$HOMEBREW_FORCE_HOMEBREW_ON_LINUX" ]]
-  then
-    CORE_OFFICIAL_REMOTE="https://github.com/Homebrew/homebrew-core"
-  else
-    CORE_OFFICIAL_REMOTE="https://github.com/Linuxbrew/homebrew-core"
-  fi
+  BREW_OFFICIAL_REMOTE="https://github.com/SuperNEMO-DBD/brew"
+  CORE_OFFICIAL_REMOTE="https://github.com/SuperNEMO-DBD/homebrew-core"
 
   safe_cd "$HOMEBREW_REPOSITORY"
   if [[ ! -d ".git" ]]
@@ -409,16 +404,6 @@ EOS
   # If the remote is not the default, change it to the default.
   if [[ "$(git config remote.origin.url)" != "$BREW_OFFICIAL_REMOTE" ]]
   then
-    esc=$(printf "\033")
-    cat <<EOS
-${esc}[32m==>${esc}[0m ${esc}[1mMigrating from Linuxbrew/brew to Homebrew/brew${esc}[0m
-  Linuxbrew/brew has been merged into Homebrew/brew!
-  Linuxbrew/brew will no longer be updated.
-  Your git remote has been changed from
-     $(git config remote.origin.url)
-  to $BREW_OFFICIAL_REMOTE
-  See the blog post at https://brew.sh/2019/02/02/homebrew-2.0.0/
-EOS
     git config remote.origin.url "$BREW_OFFICIAL_REMOTE"
   fi
 

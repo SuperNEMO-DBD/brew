@@ -201,14 +201,14 @@ class Tap
 
   # True if this {Tap} is an official Homebrew tap.
   def official?
-    user == "Homebrew" || user == "Linuxbrew"
+    user == "SuperNEMO-DBD"
   end
 
   # Whether this tap is for Linux.
   # Not simply user == "Linuxbrew", because the user of the core repo
   # homebrew/core is Homebrew and not Linuxbrew.
   def linux?
-    slug.start_with? "Linuxbrew/"
+    slug.start_with? "SuperNEMO-DBD/"
   end
 
   # True if the remote of this {Tap} is a private repository.
@@ -654,16 +654,12 @@ end
 # A specialized {Tap} class for the core formulae.
 class CoreTap < Tap
   def default_remote
-    if OS.mac? || ENV["HOMEBREW_FORCE_HOMEBREW_ORG"]
-      "https://github.com/Homebrew/homebrew-core".freeze
-    else
-      "https://github.com/Linuxbrew/homebrew-core".freeze
-    end
+    "https://github.com/SuperNEMO-DBD/homebrew-core".freeze
   end
 
   # @private
   def initialize
-    super "Homebrew", "core"
+    super "SuperNEMO-DBD", "core"
   end
 
   def self.instance

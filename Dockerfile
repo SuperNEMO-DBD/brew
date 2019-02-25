@@ -1,5 +1,5 @@
 FROM ubuntu:xenial
-LABEL maintainer="Shaun Jackman <sjackman@gmail.com>"
+LABEL maintainer="Ben.Morgan@warwick.ac.uk"
 
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends software-properties-common \
@@ -30,7 +30,7 @@ RUN cd /home/linuxbrew/.linuxbrew \
 	&& ln -s ../Homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/ \
 	&& chown -R linuxbrew: /home/linuxbrew/.linuxbrew \
 	&& cd /home/linuxbrew/.linuxbrew/Homebrew \
-	&& git remote set-url origin https://github.com/Linuxbrew/brew
+	&& git remote set-url origin https://github.com/SuperNEMO-DBD/brew
 
 USER linuxbrew
 WORKDIR /home/linuxbrew
@@ -39,5 +39,5 @@ ENV PATH=/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH \
 	USER=linuxbrew
 
 # Install portable-ruby and tap homebrew/core.
-RUN HOMEBREW_NO_ANALYTICS=1 HOMEBREW_NO_AUTO_UPDATE=1 brew tap homebrew/core \
+RUN HOMEBREW_NO_ANALYTICS=1 HOMEBREW_NO_AUTO_UPDATE=1 brew tap supernemo-dbd/core \
 	&& rm -rf ~/.cache
