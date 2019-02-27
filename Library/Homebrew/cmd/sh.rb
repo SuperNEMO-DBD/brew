@@ -46,13 +46,13 @@ module Homebrew
       ENV["PATH"] = PATH.new(ENV["PATH"]).insert(1, HOMEBREW_PREFIX/"bin")
     end
     if ENV["SHELL"].include?("zsh")
-      ENV["PS1"] = "brew %B%F{green}~%f%b$ "
+      ENV["PS1"] = "snemo %B%F{green}~%f%b$ "
     else
-      ENV["PS1"] = 'brew \[\033[1;32m\]\w\[\033[0m\]$ '
+      ENV["PS1"] = 'snemo \[\033[1;32m\]\w\[\033[0m\]$ '
     end
     ENV["VERBOSE"] = "1"
     puts <<~EOS
-      Your shell has been configured to use Homebrew's build environment;
+      Your shell has been configured to use SuperNEMO's build/runtime environment;
       this should help you build stuff. Notably though, the system versions of
       gem and pip will ignore our configuration and insist on using the
       environment they were built under (mostly). Sadly, scons will also
