@@ -1,0 +1,5 @@
+brew "patchelf", args: ["cc=gcc-7"]
+brew "python", args: ["cc=gcc-7"]
+brew "cmake", args: ["cc=gcc-7"]
+brew "ninja", args: ["cc=gcc-7"]
+brew "falaise", args: ["cc=gcc-7"]

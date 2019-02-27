@@ -136,3 +136,6 @@
 !/docker.test.yml
 # Unignore tests' bundle config
 !/Library/Homebrew/test/.bundle/config
+
+# Unignore our bundle files
+!/Brewfiles
