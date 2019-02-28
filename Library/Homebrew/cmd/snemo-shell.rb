@@ -92,7 +92,7 @@ module Homebrew
     # Run needed command in bash
     shellCmd = %W[
       /bin/bash
-      --rcfile #{HOMEBREW_PREFIX}/.snemo/bashrc
+      --rcfile #{HOMEBREW_REPOSITORY}/.snemo/bashrc
     ]
     shellCmd << "-c" << "#{args.exec}" if args.exec
     exec *shellCmd
