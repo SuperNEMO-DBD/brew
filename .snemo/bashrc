@@ -1,5 +1,19 @@
+# - MOTD
 brew --version
 echo "Type \"brew ls --versions\" to list available software"
 echo "Type \"exit\" to deactivate the session"
+
+# - Useful environment/shell settings
+# - CLI colours
+export CLICOLOR=1
+
+# - History search key bindings
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+
+# - Bash completions if available
+[[ -r "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]] && . "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
+
+# - Prompt so that it's clear what context we're in
 export PS1="\[\033[1;32m\]snemo-shell\[\033[0m\]> "
 
