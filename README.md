@@ -115,7 +115,7 @@ Once installation is complete, test the top level `falaise` package:
 
 ```
 $ brew test falaise
-Testing supernemo-dbd/cadfael/falaise
+Testing falaise
 ==> <SOMEPATH>/Cellar/falaise/3.3.0/bin/flsimulate -o test.brio
 ==> <SOMEPATH>/Cellar/falaise/3.3.0/bin/flreconstruct -i test.brio -p urn:snemo:demonstrator:reconstruction:1.0.0 -o test.root
 ```
@@ -154,7 +154,7 @@ $ singularity exec falaise.simg brew test falaise
 WARNING: Not mounting current directory: user bind control is disabled by system administrator
 WARNING: Non existent mountpoint (directory) in container: '/var/singularity/mnt/final/storage'
 error: could not lock config file /opt/supernemo/Homebrew/.git/config: Read-only file system
-Testing supernemo-dbd/cadfael/falaise
+Testing falaise
 ==> /opt/supernemo/Cellar/falaise/3.3.0/bin/flsimulate -o test.brio
 ==> /opt/supernemo/Cellar/falaise/3.3.0/bin/flreconstruct -i test.brio -p urn:snemo:demonstrator:reconstruction:1.0.0 -o test.root
 $
@@ -188,7 +188,7 @@ As with Singularity, the `falaise` package should be tested:
 ```
 $ docker run --rm supernemo/falaise brew test falaise
 Warning: Calling HOMEBREW_BUILD_FROM_SOURCE is deprecated! Use --build-from-source instead.
-Testing supernemo-dbd/cadfael/falaise
+Testing falaise
 ==> /opt/supernemo/Cellar/falaise/3.3.0/bin/flsimulate -o test.brio
 ==> /opt/supernemo/Cellar/falaise/3.3.0/bin/flreconstruct -i test.brio -p urn:snemo:demonstrator:reconstruction:1.0.0 -o test.root
 $
@@ -213,21 +213,24 @@ and needed development tools is started using the `snemo-sh` subcommand
 of `brew`:
 
 ```
-$ $HOME/snemo-sdk/bin/brew snemo-sh
-...
-falaise> flsimulate --help
+$ $HOME/snemo-sdk/bin/brew snemo-shell
+Homebrew >=1.7.1 (shallow or no git repository)
+Supernemo-dbd/homebrew-core (git revision 15b2f; last commit 2019-02-27)
+Type "brew ls --versions" to list available software
+Type "exit" to deactivate the session
+snemo-shell> flsimulate --help
 
 ```
 
 Use `exit` to close the session and return to a standard environment.
-Whilst `snemo-sh` makes every effort to sanitize the environment, you
+Whilst `snemo-shell` makes every effort to sanitize the environment, you
 may have issues if you either start it from an already complex setup,
 or if you further modify environment variables whilst in the shell.
 It's recommended to add an alias in your shell's configuration file to
 simplify starting up the shell session, for example
 
 ``` bash
-alias snemo-session="$HOME/snemo-sdk/bin/brew snemo-sh"
+alias snemo-session="$HOME/snemo-sdk/bin/brew snemo-shell"
 ```
 
 Images may be used in a similar way, but starting a session is a
@@ -239,11 +242,11 @@ $ singularity shell falaise.simg
 ...
 Singularity: Invoking an interactive shell within container...
 
-Singularity falaise.simg:~> brew snemo-sh
+Singularity falaise.simg:~> brew snemo-shell
 ...
-falaise> flsimulate --help
+snemo-shell> flsimulate --help
 ...
-falaise> exit
+snemo-shell> exit
 Singularity falaise.simg:~> exit
 $
 ```
@@ -344,21 +347,25 @@ installation. For Singularity, you can either overwrite your existing
 image file or create a new one.
 
 
-# Extension Commands for `brew`
-The following subcommands for `brew` are available once this repository
-is tapped
+# SuperNEMO Extension Commands for `brew`
+The following subcommands for `brew` are available for SuperNEMO specific
+tasks.
 
 ## `snemo-doctor`
 Runs a series of checks on the system and installation, warning if anything
 may cause issues with installing or using packages.
 
-## `snemo-sh`
+## `snemo-shell`
 Starts a new shell session in which the environment is configured for
-using and developing the offline software.
+using and developing the SuperNEMO software. It can also be used to
+run commands non-interactively. See `brew help snemo-shell` for additional
+information on thisbe used to
+run commands non-interactively. See `brew help snemo-shell` for additional
+information on this..
 
 ## `snemo-bootstrap`
 Installs the software stack from scratch into a clean Homebrew install.
-It will fail if any Formulae are already installed as it cannot guarantee a
+It may fail if any Formulae are already installed as it cannot guarantee a
 clean build otherwise.
 
 ## `snemo-update`
