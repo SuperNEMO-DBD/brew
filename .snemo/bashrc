@@ -1,0 +1,5 @@
+brew --version
+echo "Type \"brew ls --versions\" to list available software"
+echo "Type \"exit\" to deactivate the session"
+export PS1="\[\033[1;32m\]snemo-shell\[\033[0m\]> "
+

@@ -137,5 +137,6 @@
 # Unignore tests' bundle config
 !/Library/Homebrew/test/.bundle/config
 
-# Unignore our bundle files
+# Unignore our bundle and config files
 !/Brewfiles
+!/.snemo
