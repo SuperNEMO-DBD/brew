@@ -235,7 +235,7 @@ alias snemo-session="$HOME/snemo-sdk/bin/brew snemo-shell"
 
 Images may be used in a similar way, but starting a session is a
 two step process. For Singularity, we use the [`shell` subcommand](https://www.sylabs.io/guides/2.6/user-guide/appendix.html#shell)
-to start a bash shell in a container running the image, then start the `snemo-sh` session in this:
+to start a bash shell in a container running the image, then start the `snemo-shell` session in this:
 
 ```
 $ singularity shell falaise.simg
@@ -254,7 +254,7 @@ $
 As with native installs, be extremely careful if you have highly custom or
 complex environment settings, as these will be exported into the running
 container and may result in errors (for example, you refer to a path which does
-not exist in the image). Note the use of **two** `exit` commands here, one to exit the `snemo-sh`
+not exist in the image). Note the use of **two** `exit` commands here, one to exit the `snemo-shell`
 session, and one to exit the container running the image. In this sense,
 images behave much like a remote login session or virtual machine.
 Whilst the exact behaviour inside the Container will depend on how your Singularity
@@ -279,12 +279,15 @@ Docker images can be run either interactively:
 
 ```
 $ docker run --rm -it supernemo/falaise
-falaise> brew snemo-sh
+Homebrew >=1.7.1 (shallow or no git repository)
+Supernemo-dbd/homebrew-core (git revision 15b2f; last commit 2019-02-27)
+Type "brew ls --versions" to list available software
+Type "exit" to deactivate the session
+snemo-shell>
 ...
-falaise> flsimulate --help
+snemo-shell> flsimulate --help
 ...
-falaise> exit
-falaise> exit
+snemo-shell> exit
 $
 ```
 

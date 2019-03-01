@@ -69,12 +69,8 @@ RUN brew fetch -s $(brew deps -n --include-build bayeux) \
   && brew install $(brew deps -n --include-build bayeux) --cc=gcc-7 \
   && rm -rf "$(brew --cache)"
 
-# 6 SuperNEMO Core
-RUN brew fetch -s bayeux falaise \
-  && brew install bayeux falaise --cc=gcc-7 \
+# 6 SuperNEMO Packages
+RUN brew fetch -s bayeux \
+  && brew install bayeux --cc=gcc-7 \
   && rm -rf "$(brew --cache)"
-
-COPY --chown=snemo:snemo Docker/snemo-docker-entrypoint.bash $HOMEBREW_PREFIX/bin/snemo-docker-entrypoint.bash
-ENTRYPOINT ["snemo-docker-entrypoint.bash"]
-CMD ["snemo-docker-shell"]
 

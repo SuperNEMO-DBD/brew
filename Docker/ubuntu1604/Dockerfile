@@ -6,37 +6,33 @@
 #      or $TMP as Homebrew's PREFIX. As we build from source anyway this is
 #      not a significant cost.
 #    - Use ARGs so we can change it when building if required
-FROM centos:centos7
+FROM ubuntu:16.04
 MAINTAINER Ben Morgan <Ben.Morgan@warwick.ac.uk>
 
 ARG HOMEBREW_USER=snemo
 ARG HOMEBREW_PREFIX=/opt/supernemo
 
-# Can search for rpms providing files using "yum whatprovides",
-# e.g. yum whatprovides "*/x11.pc"
-RUN yum update -y \
-  && yum install -y \
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+     ca-certificates \
      curl \
-     gcc \
-     gcc-c++ \
+     file \
+     g++ \
      git \
+     locales \
      make \
-     which \
-  # Needed for ROOT, Qt5 and automake(!)
-  && yum install -y \
-     libX11-devel \
-     libXext-devel \
-     libXft-devel \
-     libXpm-devel \
-     mesa-libGL-devel \
-     mesa-libGLU-devel \
-     perl-Data-Dumper \
-     perl-Thread-Queue \
-  && yum clean all \
-  && rm -rf /var/cache/yum \
+     uuid-runtime \
+     # Graphics deps to build
+     libx11-dev \
+     libxpm-dev \
+     libxft-dev \
+     libxext-dev \
+     libglu1-mesa-dev \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* \
   && localedef -i en_US -f UTF-8 en_US.UTF-8 \
-  && useradd -m -s /bin/bash $HOMEBREW_USER \
-  && echo '$HOMEBREW_USER ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers
+	&& useradd -m -s /bin/bash $HOMEBREW_USER \
+	&& echo '$HOMEBREW_USER ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers
 
 # 2. Set up Homebrew in a given location
 ENV PATH=${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
@@ -48,7 +44,7 @@ RUN git clone https://github.com/SuperNEMO-DBD/brew.git ${HOMEBREW_PREFIX}/Homeb
 
 #----------------------------------------------------------------------
 # Userspace
-# 3. Switch to linuxbrew user for final setup
+# 3. Switch to HOMEBREW_USER for final setup
 USER $HOMEBREW_USER
 WORKDIR /home/$HOMEBREW_USER
 ENV SHELL=/bin/bash \
@@ -69,12 +65,8 @@ RUN brew fetch -s $(brew deps -n --include-build bayeux) \
   && brew install $(brew deps -n --include-build bayeux) --cc=gcc-7 \
   && rm -rf "$(brew --cache)"
 
-# 6 SuperNEMO Core
-RUN brew fetch -s bayeux falaise \
-  && brew install bayeux falaise --cc=gcc-7 \
+# 6 SuperNEMO Packages
+RUN brew fetch -s bayeux \
+  && brew install bayeux --cc=gcc-7 \
   && rm -rf "$(brew --cache)"
-
-COPY --chown=snemo:snemo Docker/snemo-docker-entrypoint.bash $HOMEBREW_PREFIX/bin/snemo-docker-entrypoint.bash
-ENTRYPOINT ["snemo-docker-entrypoint.bash"]
-CMD ["snemo-docker-shell"]
 
