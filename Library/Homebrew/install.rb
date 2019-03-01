@@ -30,7 +30,7 @@ module Homebrew
     def check_cc_argv
       return unless ARGV.cc
 
-      return unless OS.linux? and (ARGV.cc == 'gcc-7')
+      return if OS.linux? and (ARGV.cc == 'gcc-7')
 
       @checks ||= Diagnostic::Checks.new
       opoo <<~EOS
