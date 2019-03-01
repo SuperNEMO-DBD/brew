@@ -11,9 +11,6 @@
 #   interactive TTY
 # - Run supplied command under session otherwise
 
-set -x
-
-
 if [ "$1" '=' 'snemo-docker-shell' ] ; then
     if [ -t 0 ] ; then
         exec brew snemo-shell

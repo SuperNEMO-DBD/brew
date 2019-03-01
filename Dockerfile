@@ -54,7 +54,7 @@ WORKDIR /home/$HOMEBREW_USER
 ENV SHELL=/bin/bash \
   USER=$HOMEBREW_USER
 
-# 4 Toolchain (Split in two for clarity)
+# 4. Toolchain (Split in two for clarity)
 RUN brew tap SuperNEMO-DBD/core \
   && brew install gcc@7 --without-glibc \
   && brew install patchelf --cc=gcc-7 \
@@ -64,16 +64,26 @@ RUN brew install python --cc=gcc-7 \
   && brew install ninja --cc=gcc-7 \
   && rm -rf "$(brew --cache)"
 
-# 5 Third Party Packages
+# 5. Third Party Packages
 RUN brew fetch -s $(brew deps -n --include-build bayeux) \
   && brew install $(brew deps -n --include-build bayeux) --cc=gcc-7 \
   && rm -rf "$(brew --cache)"
 
-# 6 SuperNEMO Core
+# 6. SuperNEMO Core
 RUN brew fetch -s bayeux falaise \
   && brew install bayeux falaise --cc=gcc-7 \
   && rm -rf "$(brew --cache)"
 
+
+#----------------------------------------------------------------------
+# Runtime
+# 7. Data directories for Lyon, Warwick, ...
+USER root
+RUN mkdir /afs /pbs /sps \
+  # Directories for Warwick
+  && mkdir /storage
+
+USER $HOMEBREW_USER
 COPY --chown=snemo:snemo Docker/snemo-docker-entrypoint.bash $HOMEBREW_PREFIX/bin/snemo-docker-entrypoint.bash
 ENTRYPOINT ["snemo-docker-entrypoint.bash"]
 CMD ["snemo-docker-shell"]
