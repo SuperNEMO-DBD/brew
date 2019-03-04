@@ -210,6 +210,7 @@ We defer instructions on the use and development of the applications *themselves
 to those on [the main project page](https://github.com/supernemo-dbd/Falaise).
 Here we simply demonstrate how to start up the interactive shell session.
 
+## Using a Native Install
 With native installs, a new shell session configured with the applications
 and needed development tools is started using the `snemo-shell` subcommand
 of `brew`:
@@ -246,8 +247,8 @@ $ brew snemo-shell -c "flsimulate --version"
 The argument to `-c` must be given as a quoted string to handle arguments
 and variables correctly, and the command(s) must be present on the `PATH`.
 
-
-Images may be used in a similar way, but we start the `snemo-shell` session
+## Using an Image
+Images may be used in a similar way, but we start the `brew snemo-shell` session
 inside a "container" running the image. For Singularity, we use the [`exec` subcommand](https://www.sylabs.io/guides/2.6/user-guide/appendix.html#exec)
 to start the container and run the `brew snemo-shell` session in it:
 
