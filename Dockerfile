@@ -51,8 +51,6 @@ RUN git clone https://github.com/SuperNEMO-DBD/brew.git ${HOMEBREW_PREFIX}/Homeb
 # 3. Switch to linuxbrew user for final setup
 USER $HOMEBREW_USER
 WORKDIR /home/$HOMEBREW_USER
-ENV SHELL=/bin/bash \
-  USER=$HOMEBREW_USER
 
 # 4. Toolchain (Split in two for clarity)
 RUN brew tap SuperNEMO-DBD/core \
@@ -74,7 +72,6 @@ RUN brew fetch -s bayeux falaise \
   && brew install bayeux falaise --cc=gcc-7 \
   && rm -rf "$(brew --cache)"
 
-
 #----------------------------------------------------------------------
 # Runtime
 # 7. Data directories for Lyon, Warwick, ...
@@ -83,6 +80,7 @@ RUN mkdir /afs /pbs /sps \
   # Directories for Warwick
   && mkdir /storage
 
+# 8. Entry/Cmd
 USER $HOMEBREW_USER
 COPY --chown=snemo:snemo Docker/snemo-docker-entrypoint.bash $HOMEBREW_PREFIX/bin/snemo-docker-entrypoint.bash
 ENTRYPOINT ["snemo-docker-entrypoint.bash"]

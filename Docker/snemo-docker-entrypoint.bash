@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -le
 #
 # Copyright 2019 SuperNEMO Collaboration
 # Copyright 2013-2019 Lawrence Livermore National Security, LLC and other

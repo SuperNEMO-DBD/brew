@@ -66,7 +66,7 @@ For Docker on macOS or Windows, you will also require an X11 server if
 a graphical interface is needed (*Use of this is not yet documented*).
 
 If you are using a centrally managed Linux system, you may have Singularity
-installed already (for example, it is available on SuperNEMO's Tier 1 at CC-IN2P3).
+installed already (for example, **it is available on SuperNEMO's Tier 1 at CC-IN2P3**).
 Simply run
 
 ```
@@ -204,7 +204,7 @@ command downloads the default `latest` tag which always points to the current pr
 # Using the SuperNEMO Software Environment
 For both native and image installs, the primary way to use the SuperNEMO
 software is to start a shell session which configures access to the
-applications and all the tools needed to develop them.
+applications and all the tools needed to run or develop them.
 
 We defer instructions on the use and development of the applications *themselves*
 to those on [the main project page](https://github.com/supernemo-dbd/Falaise).
@@ -247,39 +247,35 @@ The argument to `-c` must be given as a quoted string to handle arguments
 and variables correctly, and the command(s) must be present on the `PATH`.
 
 
-Images may be used in a similar way, but starting a session is a
-two step process. For Singularity, we use the [`shell` subcommand](https://www.sylabs.io/guides/2.6/user-guide/appendix.html#shell)
-to start a bash shell in a container running the image, then start the `snemo-shell` session in this:
+Images may be used in a similar way, but we start the `snemo-shell` session
+inside a "container" running the image. For Singularity, we use the [`exec` subcommand](https://www.sylabs.io/guides/2.6/user-guide/appendix.html#exec)
+to start the container and run the `brew snemo-shell` session in it:
 
 ```
-$ singularity shell falaise.simg
-...
-Singularity: Invoking an interactive shell within container...
-
-Singularity falaise.simg:~> brew snemo-shell
-...
+$ singularity exec falaise.simg brew snemo-shell
+Homebrew >=1.7.1 (shallow or no git repository)
+Supernemo-dbd/homebrew-core (git revision 15b2f; last commit 2019-02-27)
+Type "brew ls --versions" to list available software
+Type "exit" to deactivate the session
 snemo-shell> flsimulate --help
 ...
 snemo-shell> exit
-Singularity falaise.simg:~> exit
 $
 ```
 
 Be extremely careful if you have highly custom or complex environment settings, as these will be exported into the running
 container and may result in errors (for example, you refer to a path which does
-not exist in the image). Note the use of **two** `exit` commands here, one to exit the `snemo-shell`
-session, and one to exit the container running the image. In this sense,
-images behave much like a remote login session or virtual machine.
+not exist in the image).
 
 Whilst the exact behaviour inside the Container will depend on how your Singularity
 install has been set up, you will generally have at least full read-write access to files
 on your `$HOME` and `$TMP` areas on the machine running Singularity, and be able
-to start graphical programs like ROOT and `flvisualize`. A notable exception here
+to start graphical programs like ROOT and `flvisualize`. **A notable exception here
 is the CC-IN2P3 Tier 1 center, where you will need to run Singularity with additional
-arguments:
+arguments**:
 
 ```
-cclyon> singularity shell --home $HOME --bind /sps falaise.simg
+ccin2p3> singularity exec --home $HOME --bind /sps falaise.simg brew snemo-shell
 ```
 
 These mount your `$HOME` area and the `/sps/` data directory in the running container.
@@ -288,23 +284,25 @@ These mount your `$HOME` area and the `/sps/` data directory in the running cont
 As with native installs, you may wish to add `aliases` to simplify running, e.g.
 
 ``` bash
-alias snemo-singularity="singularity shell --home $HOME --bind /sps <PATHTO>/falaise.simg"
+alias snemo-session="singularity exec --home $HOME --bind /sps <PATHTO>/falaise.simg brew snemo-shell"
 ```
 
-You can also directly execute programs in the image using the [`exec`
-subcommand](https://www.sylabs.io/guides/2.6/user-guide/appendix.html#exec-command),
+Programs can be executed non-interactively in a container using the [`run`
+subcommand](https://www.sylabs.io/guides/2.6/user-guide/appendix.html#run),
 e.g.
 
 ```
-$ singularity exec falaise.simg flsimulate --help
+$ singularity run falaise.simg flsimulate --help
 ...
 ```
 
+As with the `exec` command, you will need to use the `--home $HOME --bind /sps` arguments
+at CC-IN2P3 to share the `/sps` data directory and your `$HOME` area with the container.
+These, together with `run`, enable you to run both general and production processing, reconstruction,
+and analysis tasks at CC-IN2P3, including batch jobs. Please see their dedicated [Singularity @ CC-IN2P3 documentation](https://doc.cc.in2p3.fr/logiciels:singularity)([or in English](https://doc.cc.in2p3.fr/en:logiciels:singularity)) for further instructions.
+
 Much more is possible with Singularity, with a very clear and detailed
 overview available in its [online documentation](https://www.sylabs.io/guides/2.6/user-guide/index.html).
-For running general and production tasks at CC-IN2P3, including batch jobs,
-please see their dedicated [Singularity @ CC-IN2P3 documentation]()([or in English](https://doc.cc.in2p3.fr/en:logiciels:singularity)).
-
 
 Docker images can be run either interactively:
 
@@ -334,8 +332,6 @@ The most important distinction from Singularity is that you
 inside the running container. Various ways are available to share
 data between the host system and container, and we defer to
 the [Docker documentation on this subject](https://docs.docker.com/storage/).
-
-
 
 # Installing Additional Packages
 If your work requires software packages not present in the installation,
