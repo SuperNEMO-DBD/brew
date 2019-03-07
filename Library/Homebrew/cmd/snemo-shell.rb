@@ -89,6 +89,10 @@ module Homebrew
     ENV.prepend_path "PYTHONPATH", Formula["root6"].lib/"root" if Formula["root6"].installed?
     ENV.prepend_path "ROOT_INCLUDE_PATH", HOMEBREW_PREFIX/"include" if Formula["root6"].installed?
 
+    # Bayeux doesn't declare full include paths, so ensure the top level
+    # dir is also visible to root
+    ENV.prepend_path "ROOT_INCLUDE_PATH", HOMEBREW_PREFIX/"include/bayeux" if Formula["bayeux"].installed?
+
     # Run needed command in bash
     shellCmd = %W[
       /bin/bash
