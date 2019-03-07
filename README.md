@@ -281,7 +281,6 @@ ccin2p3> singularity exec --home $HOME --bind /sps falaise.simg brew snemo-shell
 
 These mount your `$HOME` area and the `/sps/` data directory in the running container.
 
-
 As with native installs, you may wish to add `aliases` to simplify running, e.g.
 
 ``` bash
@@ -301,6 +300,10 @@ As with the `exec` command, you will need to use the `--home $HOME --bind /sps` 
 at CC-IN2P3 to share the `/sps` data directory and your `$HOME` area with the container.
 These, together with `run`, enable you to run both general and production processing, reconstruction,
 and analysis tasks at CC-IN2P3, including batch jobs. Please see their dedicated [Singularity @ CC-IN2P3 documentation](https://doc.cc.in2p3.fr/logiciels:singularity)([or in English](https://doc.cc.in2p3.fr/en:logiciels:singularity)) for further instructions.
+
+It is also possible to run graphical programs such as `root` or `flvisualize`
+in the image, but full support for this is currently in development. Please
+see [Issue #6](https://github.com/SuperNEMO-DBD/brew/issues/6) for the current status and workarounds to use graphics.
 
 Much more is possible with Singularity, with a very clear and detailed
 overview available in its [online documentation](https://www.sylabs.io/guides/2.6/user-guide/index.html).
