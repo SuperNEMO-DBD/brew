@@ -299,10 +299,8 @@ $ singularity run falaise.simg flsimulate --help
 As with the `exec` command, you will need to use the `--home $HOME --bind /sps` arguments
 at CC-IN2P3 to share the `/sps` data directory and your `$HOME` area with the container.
 These, together with `run`, enable you to run both general and production processing, reconstruction,
-and analysis tasks at CC-IN2P3, including batch jobs. Please see their dedicated [Singularity @ CC-IN2P3 documentation](https://doc.cc.in2p3.fr/logiciels:singularity)([or in English](https://doc.cc.in2p3.fr/en:logiciels:singularity)) for further instructions.
-It is also possible to run graphical programs such as `root` or `flvisualize`
-in the image, but if you are running over an SSH connection you must have X11
-forwarding set up.
+and analysis tasks at CC-IN2P3, including batch jobs. Please see their dedicated [Singularity @ CC-IN2P3 documentation](https://doc.cc.in2p3.fr/logiciels:singularity)([or in English](https://doc.cc.in2p3.fr/en:logiciels:singularity)) for further instructions. It is also possible to run graphical programs such as `root` or `flvisualize`
+in the image. 
 
 Much more is possible with Singularity, with a very clear and detailed
 overview available in its [online documentation](https://www.sylabs.io/guides/2.6/user-guide/index.html).
@@ -335,6 +333,50 @@ The most important distinction from Singularity is that you
 graphical connections inside the running container. Various ways are available to share
 data between the host system and container, and we defer to
 the [Docker documentation on this subject](https://docs.docker.com/storage/).
+
+## Using Graphical Programs over a Remote Connections with X11 Forwarding
+
+If you want to run graphical applications (or that may create graphics) such 
+as `ROOT`, `flsimulate-configure`, or `python` over an SSH connection, some
+care is needed (and applies whether you run a Native or Image install on the
+remote side). The minimum requirement is to use X11 forwarding when you start
+the `ssh` connection, for example
+
+```
+$ ssh -X yourusername@theremote.host
+```
+
+In some cases, such as for CC-IN2P3, you may need to use trusted X11 forwarding:
+
+```
+$ ssh -Y yourusername@theremote.host
+```
+
+In both cases, you can check that graphics are working by running the `xeyes` program
+after connecting, e.g.
+
+```
+$ ssh -X yourusername@theremote.host
+...
+theremote.host> xeyes
+```
+
+A little Xwindow with eyes that follow your mouse should pop up! If so, all graphical
+programs in either a Native or (Singularity) Image install should work without issue.
+
+Please note that the speed of getting and updating windows is dependent on the quality
+of your network connection to the remote side. Most institute networks and even higher end
+consumer broadband should support most tasks. If you do see significant slowness, you can
+try enabling compression on the connection using the `-C` flag, e.g.
+
+```
+$ ssh -X -C yourusername@theremote.host
+...
+theremote.host> xeyes
+```
+
+See the `ssh` manual for more information on X11 forwarding and compression.
+
 
 # Installing Additional Packages
 If your work requires software packages not present in the installation,
