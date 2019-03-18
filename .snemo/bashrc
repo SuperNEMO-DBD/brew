@@ -3,9 +3,13 @@ brew --version
 echo "Type \"brew ls --versions\" to list available software"
 echo "Type \"exit\" to deactivate the session"
 
-# - Useful environment/shell settings
-# - CLI colours
+# - Useful environment/shell/alias settings
+# - CLI colours for mac/linux
 export CLICOLOR=1
+if [[ "$HOMEBREW_SYSTEM" == "Linux" ]]
+then
+  alias ls="ls --color=auto"
+fi
 
 # - History search key bindings
 bind '"\e[A": history-search-backward'

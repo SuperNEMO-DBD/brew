@@ -94,7 +94,16 @@ module Homebrew
     ENV.prepend_path "ROOT_INCLUDE_PATH", HOMEBREW_PREFIX/"include/bayeux" if Formula["bayeux"].installed?
 
     # Restore Graphical settings
+    # DISPLAY is DISPLAY, wherever we are
     ENV["DISPLAY"] = ENV["HOMEBREW_DISPLAY"] if ENV["HOMEBREW_DISPLAY"]
+    # In Singularity, we don't set XDG_RUNTIME_DIR, and override QT_XKB_CONFIG_ROOT
+    # Otherwise forward on XDG_RUNTIME_DIR
+    if OS.linux? and File.exist?("/singularity")
+      ENV["XDG_RUNTIME_DIR"] = nil
+      ENV["QT_XKB_CONFIG_ROOT"] = "/usr/share/X11/xkb"
+    else
+      ENV["XDG_RUNTIME_DIR"] = ENV["HOMEBREW_XDG_RUNTIME_DIR"] if ENV["HOMEBREW_XDG_RUNTIME_DIR"]
+    end
 
     # Run needed command in bash
     shellCmd = %W[
