@@ -51,7 +51,7 @@ def system_packages_to_install
      perl-Thread-Queue
     )
     missing = packages.select { |p| true unless rpm_installed?(p) }
-    cmd.concat(missing).join(" ") if missing
+    cmd.concat(missing).join(" ") unless missing.empty?
   when "ubuntu"
     cmd = %w(apt-get install)
     packages = %w(
@@ -72,7 +72,7 @@ def system_packages_to_install
      texinfo
     )
     missing = packages.select { |p| true unless deb_installed?(p) }
-    cmd.concat(missing).join(" ") if missing
+    cmd.concat(missing).join(" ") unless missing.empty?
   end
 end
 
