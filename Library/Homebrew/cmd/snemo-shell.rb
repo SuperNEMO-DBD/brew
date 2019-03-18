@@ -93,6 +93,9 @@ module Homebrew
     # dir is also visible to root
     ENV.prepend_path "ROOT_INCLUDE_PATH", HOMEBREW_PREFIX/"include/bayeux" if Formula["bayeux"].installed?
 
+    # Restore Graphical settings
+    ENV["DISPLAY"] = ENV["HOMEBREW_DISPLAY"] if ENV["HOMEBREW_DISPLAY"]
+
     # Run needed command in bash
     shellCmd = %W[
       /bin/bash
