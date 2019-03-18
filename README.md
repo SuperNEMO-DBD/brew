@@ -300,10 +300,9 @@ As with the `exec` command, you will need to use the `--home $HOME --bind /sps` 
 at CC-IN2P3 to share the `/sps` data directory and your `$HOME` area with the container.
 These, together with `run`, enable you to run both general and production processing, reconstruction,
 and analysis tasks at CC-IN2P3, including batch jobs. Please see their dedicated [Singularity @ CC-IN2P3 documentation](https://doc.cc.in2p3.fr/logiciels:singularity)([or in English](https://doc.cc.in2p3.fr/en:logiciels:singularity)) for further instructions.
-
 It is also possible to run graphical programs such as `root` or `flvisualize`
-in the image, but full support for this is currently in development. Please
-see [Issue #6](https://github.com/SuperNEMO-DBD/brew/issues/6) for the current status and workarounds to use graphics.
+in the image, but if you are running over an SSH connection you must have X11
+forwarding set up.
 
 Much more is possible with Singularity, with a very clear and detailed
 overview available in its [online documentation](https://www.sylabs.io/guides/2.6/user-guide/index.html).
@@ -332,15 +331,16 @@ $ docker run --rm supernemo/falaise flsimulate --help
 ```
 
 The most important distinction from Singularity is that you
-**do not** have access to your `$HOME` area or other filesystems
-inside the running container. Various ways are available to share
+**do not** have access to your `$HOME` area, other filesystems, or
+graphical connections inside the running container. Various ways are available to share
 data between the host system and container, and we defer to
 the [Docker documentation on this subject](https://docs.docker.com/storage/).
 
 # Installing Additional Packages
 If your work requires software packages not present in the installation,
 you can install them through `brew` **if** Formulae for them exist. **Note
-that at present this functionality is only supported for native installs**.
+that at present this functionality is only supported for native installs because
+Singularity only allows read-only access to the install area**.
 Use the `search` subcommand to see if the package is available:
 
 ```
