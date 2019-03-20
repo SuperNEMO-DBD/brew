@@ -63,7 +63,11 @@ base system.
 To install images and run them in containers, either [Singularity](https://www.sylabs.io/singularity/)(Linux only)
 or [Docker](https://www.docker.com)(Linux, macOS or Windows) is required.
 For Docker on macOS or Windows, you will also require an X11 server if
-a graphical interface is needed (*Use of this is not yet documented*).
+a graphical interface is needed, or if you are connecting to CC IN2P3.
+[XQuartz](https://www.xquartz.org) works well on macOS. There are no
+recommendations for Windows yet, but you may try [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/) as an SSH client
+with [VcXsrv](https://sourceforge.net/projects/vcxsrv/) as the X11 server
+(see also [this guide from UW-Madison](https://comphelp.chem.wisc.edu/content/installing-vcxsrv-and-putty)).
 
 If you are using a centrally managed Linux system, you may have Singularity
 installed already (for example, **it is available on SuperNEMO's Tier 1 at CC-IN2P3**).
@@ -338,8 +342,13 @@ the [Docker documentation on this subject](https://docs.docker.com/storage/).
 
 If you want to run graphical applications (or that may create graphics) such 
 as `ROOT`, `flsimulate-configure`, or `python` over an SSH connection, some
-care is needed (and applies whether you run a Native or Image install on the
-remote side). The minimum requirement is to use X11 forwarding when you start
+additional steps are needed (and applies whether you run a Native or Image install on the
+remote side). If you are connecting from a macOS or Windows host, then you will
+need to have [XQuartz](https://www.xquartz.org) installed on macOS, or
+[PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/) and [VcXsrv](https://sourceforge.net/projects/vcxsrv/)
+on Windows (but note that PuTTY+VcXsrv are currently untested).
+
+The minimum requirement is to use X11 forwarding when you start
 the `ssh` connection, for example
 
 ```
