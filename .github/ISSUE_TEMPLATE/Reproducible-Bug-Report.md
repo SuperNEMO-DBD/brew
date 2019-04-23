@@ -3,40 +3,48 @@ name: Reproducible Bug Report
 about: Submit an issue so we can investigate
 
 ---
+To help us triage debug your issue, please supply the following information:
 
-**Please note that we will close your issue without comment if you delete, do not read or do not fill out the issue checklist below and provide ALL the requested information. If you repeatedly fail to use the issue template, we will block you from ever submitting issues to this repository again.**
-
-- [ ] ran a `brew` command and reproduced the problem with multiple formulae? 
-- [ ] ran `brew update` and can still reproduce the problem?
-- [ ] ran `brew doctor`, fixed all issues and can still reproduce the problem?
-- [ ] ran `brew config` and `brew doctor` and included their output with your issue?
-- [ ] have a problem with `brew install` (or `upgrade`, `reinstall`) a single, supernemo-dbd-core formula?
-- [ ] ran `brew gist-logs <formula>` (where `<formula>` is the name of the formula that failed) and included the output link?
-- [ ] if `brew gist-logs` didn't work: ran `brew config` and `brew doctor` and included their output with your issue?
-
-<!-- To help us debug your issue, please complete these sections: -->
-
-# What you were trying to do (and why)
-
-<!-- replace me -->
-
-# What happened (include command output)
-
-<!-- replace me -->
-
+## Required Information
+### Output of `brew config`?
 <details>
-  <summary>Command output</summary>
+  <summary>config output</summary>
   <pre>
   
-  <!-- replace this with the command output -->
+  <!-- replace this with the output of `brew config` -->
   
   </pre>
 </details>
 
-# What you expected to happen
+### Output of `brew snemo-doctor`?
+<details>
+  <summary>snemo-doctor output</summary>
+  <pre>
+  
+  <!-- replace this with the output of `brew snemo-doctor` -->
+  
+  </pre>
+</details>
 
-<!-- replace me -->
+## Are you experiencing...
+## [ ] A problem with running `brew` itself?
+<!-- Replace this with the commands you tried to run and the errors you encountered -->
 
-# Step-by-step reproduction instructions (by running `brew` commands)
+## [ ] A problem with running `brew snemo-bootstrap`?
+<!-- Replace this with a brief description of the problem -->
 
-<!-- replace me -->
+<details>
+  <summary>Output from snemo-bootstrap</summary>
+  <pre>
+  
+  <!-- replace this with the output of `brew snemo-bootstrap` -->
+  
+  </pre>
+</details>
+
+## [ ] A problem with running `brew snemo-shell`?
+<!-- Replace this with a brief description of the problem, the commands you tried to run and the errors you encountered -->
+
+## [ ] A problem with running Singularity/Docker images?
+<!-- Replace this with a brief description of the problem, the commands you tried to run and the errors you encountered -->
+
