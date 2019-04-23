@@ -112,7 +112,8 @@ $ brew snemo-bootstrap
 
 This step will take some time to complete as a full suite of development
 tools and packages will be built from scratch. If you encounter
-any errors here [raise an Issue](https://github.com/SuperNEMO-DBD/brew/issues/new)
+any errors here, you can run the command again in the case of it failing to
+download packages, otherwise always [raise an Issue](https://github.com/SuperNEMO-DBD/brew/issues/new)
 and **supply the requested information**.
 
 Once installation is complete, test the top level `falaise` package:
