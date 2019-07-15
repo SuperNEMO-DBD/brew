@@ -36,7 +36,9 @@ RUN yum update -y \
   && rm -rf /var/cache/yum \
   && localedef -i en_US -f UTF-8 en_US.UTF-8 \
   && useradd -m -s /bin/bash $HOMEBREW_USER \
-  && echo '$HOMEBREW_USER ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers
+  && echo '$HOMEBREW_USER ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers \
+  # Support bind mounts for known Tier 1/2/3 systems
+  && mkdir /afs /pbs /sps /storage /cvmfs
 
 # 2. Set up Homebrew in a given location
 ENV PATH=${HOMEBREW_PREFIX}/bin:${HOMEBREW_PREFIX}/sbin:$PATH
@@ -51,8 +53,7 @@ RUN git clone https://github.com/SuperNEMO-DBD/brew.git ${HOMEBREW_PREFIX}/Homeb
 # 3. Switch to linuxbrew user for final setup
 USER $HOMEBREW_USER
 WORKDIR /home/$HOMEBREW_USER
-ENV SHELL=/bin/bash \
-  USER=$HOMEBREW_USER
+ENV SHELL=/bin/bash
 
 # 4 Toolchain (Split in two for clarity)
 RUN brew tap SuperNEMO-DBD/core \
