@@ -33,14 +33,14 @@ install and use.
 The following Linux or macOS base systems are required
 for native installs:
 
-- CentOS/Scientific/RedHat Linux 6 and 7
+- CentOS/Scientific/RedHat Linux 7
   - At a terminal prompt, run (or ask your friendly neighbourhood sysadmin to run):
 
   ```
   $ sudo yum install curl gcc gcc-c++ git make which libX11-devel libXext-devel libXft-devel libXpm-devel mesa-libGL-devel mesa-libGLU-devel perl-Data-Dumper perl-Thread-Queue
   ```
 
-  - *Please note that CentOS 6 support is on a best-effort basis due to this OS approaching EOL*
+  - *CentOS 8 support is expected once this reaches release*
 
 - Ubuntu Linux 16.04LTS, 18.04LTS
   - At a terminal prompt, run (or ask your friendly neighbourhood sysadmin to run):
@@ -51,6 +51,7 @@ for native installs:
 
 - macOS Sierra, High Sierra, or Mojave
   - Install [Xcode](https://developer.apple.com/xcode/) from the [App Store](https://itunes.apple.com/gb/app/xcode/id497799835?mt=12).
+  - *Catalina support is not expected until Q1 of 2020*
 
 
 Linux distributions other than the above are not officially supported
