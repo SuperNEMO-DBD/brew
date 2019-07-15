@@ -98,7 +98,9 @@ on this Platform.
 
 
 # Quickstart
-## Installing Natively
+## Installing Natively From Scratch
+If you do not have an existing install of the SuperNEMO software, then start by doing:
+
 ```
 $ git clone https://github.com/SuperNEMO-DBD/brew.git snemo-sdk
 $ eval $(./snemo-sdk/bin/brew shellenv)
