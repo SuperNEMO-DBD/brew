@@ -61,6 +61,12 @@ module Homebrew
     ENV.setup_build_environment
     ENV["VERBOSE"] = "1"
     ENV.cxx11
+    # Filter out -w from flags so users can get build warnings as normal
+    ENV["CFLAGS"] = ENV["CFLAGS"].gsub(/ \-w /,' ')
+    ENV["CXXFLAGS"] = ENV["CXXFLAGS"].gsub(/ \-w /,' ')
+    ENV["OBJCFLAGS"] = ENV["OBJCFLAGS"].gsub(/ \-w /,' ')
+    ENV["OBJCXXFLAGS"] = ENV["OBJCXXFLAGS"].gsub(/ \-w /,' ')
+
     # List on installed keg_only deps
     deps = Formula.installed.select { |f| f.keg_only? && f.opt_prefix.directory? }
 
