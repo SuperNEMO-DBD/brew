@@ -277,11 +277,12 @@ module SharedEnvExtension
 
   # @private
   def effective_arch
-    if ARGV.build_bottle? && ARGV.bottle_arch
-      ARGV.bottle_arch
-    else
-      Hardware.oldest_cpu
-    end
+    #if ARGV.build_bottle? && ARGV.bottle_arch
+    #  ARGV.bottle_arch
+    #else
+    #  Hardware.oldest_cpu
+    #end
+    :core2
   end
 
   # @private
