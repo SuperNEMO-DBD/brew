@@ -41,6 +41,7 @@ def system_packages_to_install
      git
      make
      which
+     libxkbcommon-devel
      libX11-devel
      libXext-devel
      libXft-devel
@@ -64,9 +65,10 @@ def system_packages_to_install
      make
      uuid-runtime
      libx11-dev
-     libxpm-dev
-     libxft-dev
      libxext-dev
+     libxft-dev
+     libxkbcommon-devel
+     libxpm-dev
      libglu1-mesa-dev
      flex
      texinfo
@@ -84,9 +86,9 @@ LinuxOSRelease = Struct.new(:id, :version_id, :pretty_name) do
     else
       case self.id
       when "centos"
-        true if self.version_id >= Version.new("6")
+        true if self.version_id >= Version.new("7")
       when "ubuntu"
-        true if self.version_id >= Version.new("16.04")
+        true if self.version_id >= Version.new("18.04")
       else
         false
       end
