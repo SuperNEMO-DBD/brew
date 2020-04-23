@@ -37,21 +37,20 @@ for native installs:
   - At a terminal prompt, run (or ask your friendly neighbourhood sysadmin to run):
 
   ```
-  $ sudo yum install curl gcc gcc-c++ git make which libX11-devel libXext-devel libXft-devel libXpm-devel mesa-libGL-devel mesa-libGLU-devel perl-Data-Dumper perl-Thread-Queue
+  $ sudo yum install curl gcc gcc-c++ git make which libxkbcommon-devel libX11-devel libXext-devel libXft-devel libXpm-devel mesa-libGL-devel mesa-libGLU-devel perl-Data-Dumper perl-Thread-Queue
   ```
 
   - *CentOS 8 support is expected once this reaches release*
 
-- Ubuntu Linux 16.04LTS, 18.04LTS
+- Ubuntu Linux 18.04LTS, (20.04LTS once released)
   - At a terminal prompt, run (or ask your friendly neighbourhood sysadmin to run):
 
   ```
-  $ sudo apt-get install ca-certificates curl file g++ git locales make uuid-runtime libx11-dev libxpm-dev libxft-dev libxext-dev libglu1-mesa-dev flex texinfo
+  $ sudo apt-get install ca-certificates curl file g++ git locales make uuid-runtime libx11-dev libxkbcommon-dev libxpm-dev libxft-dev libxext-dev libglu1-mesa-dev flex texinfo
   ```
 
-- macOS Sierra, High Sierra, or Mojave
+- macOS Sierra, High Sierra, Mojave, Catalina
   - Install [Xcode](https://developer.apple.com/xcode/) from the [App Store](https://itunes.apple.com/gb/app/xcode/id497799835?mt=12).
-  - *Catalina support is not expected until Q1 of 2020*
 
 
 Linux distributions other than the above are not officially supported
@@ -308,7 +307,7 @@ As with the `exec` command, you will need to use the `--home $HOME --bind /sps` 
 at CC-IN2P3 to share the `/sps` data directory and your `$HOME` area with the container.
 These, together with `run`, enable you to run both general and production processing, reconstruction,
 and analysis tasks at CC-IN2P3, including batch jobs. Please see their dedicated [Singularity @ CC-IN2P3 documentation](https://doc.cc.in2p3.fr/logiciels:singularity)([or in English](https://doc.cc.in2p3.fr/en:logiciels:singularity)) for further instructions. It is also possible to run graphical programs such as `root` or `flvisualize`
-in the image. 
+in the image.
 
 Much more is possible with Singularity, with a very clear and detailed
 overview available in its [online documentation](https://www.sylabs.io/guides/2.6/user-guide/index.html).
@@ -344,7 +343,7 @@ the [Docker documentation on this subject](https://docs.docker.com/storage/).
 
 ## Using Graphical Programs over a Remote Connections with X11 Forwarding
 
-If you want to run graphical applications (or that may create graphics) such 
+If you want to run graphical applications (or that may create graphics) such
 as `ROOT`, `flsimulate-configure`, or `python` over an SSH connection, some
 additional steps are needed (and applies whether you run a Native or Image install on the
 remote side). If you are connecting from a macOS or Windows host, then you will

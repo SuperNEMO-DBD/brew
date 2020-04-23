@@ -24,6 +24,7 @@ RUN yum update -y \
      which \
   # Needed for ROOT, Qt5 and automake(!)
   && yum install -y \
+     libxkbcommon-devel \
      libX11-devel \
      libXext-devel \
      libXft-devel \

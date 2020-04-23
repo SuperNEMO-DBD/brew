@@ -26,6 +26,7 @@ RUN apt-get update \
      libx11-dev \
      libxpm-dev \
      libxft-dev \
+     libxkbcommon-dev \
      libxext-dev \
      libglu1-mesa-dev \
      flex \
