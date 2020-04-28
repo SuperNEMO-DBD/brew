@@ -420,11 +420,11 @@ versions approved for production work. These must be used for all simulation,
 processing, and analysis production tasks. Thus you should in general
 **only update when a new release is announced**.
 
-For native installs, updating the software is done with the `snemo-update`
+For native installs, updating the software is done with the `update`
 command
 
 ```console
-$ brew snemo-update
+$ brew update
 ```
 
 This will update the Homebrew installation itself, and then upgrade
@@ -455,10 +455,6 @@ information on this..
 Installs the software stack from scratch into a clean Homebrew install.
 It may fail if any Formulae are already installed as it cannot guarantee a
 clean build otherwise.
-
-## `snemo-update`
-Updates Homebrew code and Formula definitions before upgrading any outdated
-packages to latest stable versions.
 
 ## `snemo-formula-history`
 SuperNEMO-supplied implementation of the old `versions` subcommand.
